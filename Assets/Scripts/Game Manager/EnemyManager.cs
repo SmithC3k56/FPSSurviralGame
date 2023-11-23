@@ -16,6 +16,9 @@ public class EnemyManager : MonoBehaviour
 
     public float wait_Before_Spawn_Enemies_Time = 10f;
 
+    [SerializeField] private GameObject HPItem, MPItem;
+    [SerializeField] private int itemCount;
+    private int initial_Item_Count;
     private void Awake()
     {
         MakeInstance();
@@ -25,16 +28,11 @@ public class EnemyManager : MonoBehaviour
     {
         initial_Cannibal_Count = cannibal_Enemy_Count;
         initial_Boar_Count = boar_Enemy_Count;
-        
+        initial_Item_Count = itemCount;
         SpawnEnemies();
         StartCoroutine("CheckToSpawnEnemies");
     }
-
-
-    private void Update()
-    {
-        
-    }
+    
 
     private void MakeInstance(){
         if(instance == null){
@@ -45,6 +43,7 @@ public class EnemyManager : MonoBehaviour
     private void SpawnEnemies(){
         SpawnCannibals();
         SpawnBoars();
+        
 
     }
 
@@ -80,6 +79,33 @@ public class EnemyManager : MonoBehaviour
 
         boar_Enemy_Count = 0;
     }
+    public void SpawnItems(Vector3 location)
+    {
+        Vector3 newLocation = new Vector3(location.x, 22, location.z);
+        int index = 0;
+        for(int i =0; i< itemCount; i++){
+
+            if(index >= boar_SpawnPoints.Length){
+                index = 0;
+            }
+            int randomNumber = Random.Range(1, 4);
+            switch (randomNumber)
+            {
+                case 1:
+                    Instantiate(HPItem, newLocation, Quaternion.identity);
+                    break;
+                case 2:
+                    Instantiate(MPItem, newLocation, Quaternion.identity);
+                    break;
+                default:
+                    break;
+            }
+
+            index++;
+        }
+
+        itemCount = 0;
+    }
 
     IEnumerator CheckToSpawnEnemies(){
         yield return new WaitForSeconds(wait_Before_Spawn_Enemies_Time);
@@ -92,7 +118,9 @@ public class EnemyManager : MonoBehaviour
     }
 
     public void EnemyDied(bool cannibal){
+        
         if(cannibal){
+            // SpawnItems(cannibal_Prefab.transform.position);
             cannibal_Enemy_Count++;
             if(cannibal_Enemy_Count > initial_Cannibal_Count){
                 cannibal_Enemy_Count = initial_Cannibal_Count;
@@ -100,7 +128,7 @@ public class EnemyManager : MonoBehaviour
         }
         else{
             boar_Enemy_Count++;
-
+            // SpawnItems(boar_Prefab.transform.position);
             if(boar_Enemy_Count > initial_Boar_Count){
                 boar_Enemy_Count = initial_Boar_Count;
             }

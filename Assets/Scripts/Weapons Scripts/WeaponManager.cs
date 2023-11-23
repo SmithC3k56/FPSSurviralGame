@@ -36,6 +36,8 @@ public class WeaponManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Alpha6)){
             TurnOnSelectedWeapon(5);
+        }if(Input.GetKeyDown(KeyCode.Alpha7)){
+            TurnOnSelectedWeapon(6);
         }
         
     }

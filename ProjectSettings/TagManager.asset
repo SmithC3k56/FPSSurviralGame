@@ -10,6 +10,7 @@ TagManager:
   - FP Camera
   - Arrow
   - Enemy
+  - Item
   layers:
   - Default
   - TransparentFX

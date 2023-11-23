@@ -20,6 +20,8 @@ public class PlayerAttack : MonoBehaviour
     private GameObject arrow_Prefab, spear_Prefab;
 
     [SerializeField]
+    private Transform spear_StartPosition;  
+    [SerializeField]
     private Transform arrrow_Bow_StartPosition;
 
     private bool is_Aiming;
@@ -110,7 +112,7 @@ public class PlayerAttack : MonoBehaviour
             arrow.GetComponent<ArrowBowScript>().Lauch(mainCam);
         }else{
             GameObject spear = Instantiate(spear_Prefab);
-            spear.transform.position = arrrow_Bow_StartPosition.position;
+            spear.transform.position = spear_StartPosition.position;
 
             spear.GetComponent<ArrowBowScript>().Lauch(mainCam);
         }

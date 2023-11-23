@@ -31,6 +31,7 @@ public class Tags{
     public const string CROSSHAIR = "Crosshair";
     public const string ARROW_TAG = "Arrow";
 
+    public const string ITEM_TAG ="Item";
     public const string AXE_TAG ="Axe";
     public const string PLAYER_TAG ="Player";
     public const string ENEMY_TAG ="Enemy";

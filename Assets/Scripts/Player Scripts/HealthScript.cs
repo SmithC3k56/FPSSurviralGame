@@ -35,8 +35,11 @@ public class HealthScript : MonoBehaviour
             player_Stats = GetComponent<PlayerStats>();
         }
     }
-    
 
+    public void EatItem(float amount)
+    {
+        health += amount;
+    }
     public void ApplyDamage(float damage){
       // if died, do not apply dammage
         if(is_Dead)return;
@@ -61,6 +64,7 @@ public class HealthScript : MonoBehaviour
     private void PlayerDied(){
         if(is_Cannibal){
            
+            EnemyManager.instance.SpawnItems(gameObject.transform.position);
             GetComponent<Animator>().enabled = false;
             GetComponent<BoxCollider>().isTrigger = false;
             // GetComponent<Rigidbody>().AddTorque(-transform.forward * 5f);
@@ -76,6 +80,7 @@ public class HealthScript : MonoBehaviour
         }
 
         if(is_Boar){
+            EnemyManager.instance.SpawnItems(gameObject.transform.position);
             navAgent.velocity = Vector3.zero;
             navAgent.isStopped = true;
             enemy_Controller.enabled = false;
@@ -115,7 +120,7 @@ public class HealthScript : MonoBehaviour
     }
 
     private void RestartGame(){
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Scenes/Menu 3D");
     }
 
     private void TurnOffGameObject(){
